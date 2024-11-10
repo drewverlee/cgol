@@ -46,7 +46,7 @@
     (filter true?)
     count))
 
-(defn given-a-grid-of-cells-if-we-apply-conways-game-of-life-to-it-what-will-the-resulting-cell-look-like?
+(defn given-a-grid-of-cells-if-we-apply-conways-game-of-life-to-it-what-will-the-resulting-grid-look-like?
   [grid]
   (reduce-kv
     (fn [new-grid row-index row]
@@ -64,7 +64,7 @@
     grid))
 
 (=
-  (given-a-grid-of-cells-if-we-apply-conways-game-of-life-to-it-what-will-the-resulting-cell-look-like?
+  (given-a-grid-of-cells-if-we-apply-conways-game-of-life-to-it-what-will-the-resulting-grid-look-like?
     [[false false false false false false false false]
      [false false false false true  false false false]
      [false false false true  true  false false false]
