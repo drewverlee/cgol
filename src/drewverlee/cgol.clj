@@ -21,10 +21,10 @@
 ;; here is the code...
 
 (defn- should-this-cell-stay-alive?
-  [live-neighbor-count live]
+  [how-many-neighbors-are-alive? is-the-current-cell-alive?]
   (or
-    (= live-neighbor-count 3)
-    (and live (= live-neighbor-count 2))))
+    (= how-many-neighbors-are-alive? 3)
+    (and is-the-current-cell-alive? (= how-many-neighbors-are-alive? 2))))
 
 (defn- given-the-current-cell-how-many-neighbors-are-alive-around-it?
   [[row column :as current-cell] grid]
@@ -38,6 +38,7 @@
               max-column-size (-> grid first count)]
           (or
             (= current-cell neighbor-cell)
+            ;; remove any cells that go out of bounds of the grid
             (< max-row-size row)
             (< max-column-size column)
             (neg? row)
@@ -52,12 +53,12 @@
     (fn [new-grid row-index row]
       (conj new-grid
             (reduce-kv
-              (fn [new-row column-index live]
+              (fn [new-row column-index is-the-current-cell-alive?]
                 (conj new-row
                       (should-this-cell-stay-alive?
                         (given-the-current-cell-how-many-neighbors-are-alive-around-it?
                           [row-index column-index] grid)
-                        live)))
+                        is-the-current-cell-alive?)))
               []
               row)))
     []
