@@ -27,17 +27,17 @@
     (and live (= live-neighbor-count 2))))
 
 (defn- given-the-current-cell-how-many-neighbors-are-alive-around-it?
-  [[row column :as pos] grid]
+  [[row column :as current-cell] grid]
   (->>
     [[(dec row) (dec column)] [(dec row) column] [(dec row) (inc column)]
      [row (dec column)]       [row column]       [row (inc column)]
      [(inc row) (dec column)] [(inc row) column] [(inc row) (inc column)]]
     (remove
-      (fn [[row column :as p]]
+      (fn [[row column :as neighbor-cell]]
         (let [max-row-size    (-> grid count)
               max-column-size (-> grid first count)]
           (or
-            (= pos p)
+            (= current-cell neighbor-cell)
             (< max-row-size row)
             (< max-column-size column)
             (neg? row)
